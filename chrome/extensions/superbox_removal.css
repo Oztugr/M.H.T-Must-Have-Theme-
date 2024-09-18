@@ -1,0 +1,251 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
+
+
+@media (-moz-bool-pref: "ultima.urlbar.centered") {
+
+  #urlbar .urlbar-input-box {
+    text-align: center;
+  }  
+  #urlbar .urlbar-input {
+    text-overflow: ellipsis !important;
+    overflow: hidden;
+    white-space: nowrap; 
+  }
+
+}
+
+@media (-moz-bool-pref: "ultima.urlbar.hidebuttons") {
+
+  #urlbar #identity-box,
+  #urlbar #page-action-buttons,
+  #urlbar #tracking-protection-icon-container {
+    opacity: 0 !important;
+  }
+  #urlbar:hover #identity-box,
+  #urlbar:hover #page-action-buttons,
+  #urlbar:hover #tracking-protection-icon-container {
+    opacity: 1 !important;
+    transition: opacity 100ms ease !important;
+  }
+  
+}
+
+
+
+
+/* ArcWTF - browser.css
+ * https://github.com/KiKaraage/ArcWTF */
+
+/* Windows has 1px missing space on top of window, but not when accent colour is
+ * applied to the title bar. */
+@media (-moz-platform: windows) and (not (-moz-windows-accent-color-in-titlebar)) {
+  :root[sizemode="normal"][tabsintitlebar]:not([inFullscreen]) #navigator-toolbox {
+    padding-top: 1px !important;
+  }
+}
+
+/* Add a shadow when the toolbars move over content, eg. in macOS hovering over
+ * the menu bar in fullscreen mode. */
+#navigator-toolbox[style*="transform"] {
+  box-shadow: 0 -3px 5px 3px light-dark(rgb(0 0 0 / .3), rgb(0 0 0 / .6)) !important;
+}
+
+/* Rounded Corners Tweak */
+@media {
+  /* Since Firefox 120, when the bookmarks bar is set to only open on new tabs,
+  * the bookmarks bar overlaps the #browser element. */
+
+  /* Change the element that shifts the browser content to the correct position. */
+  #main-window[BookmarksToolbarOverlapsBrowser] .newTabBrowserPanel,
+  #main-window[BookmarksToolbarOverlapsBrowser] #sidebar-box {
+    padding-top: 0 !important;
+  }
+
+  :main-window[BookmarksToolbarOverlapsBrowser] #browser {
+    margin-top: var(--bookmarks-toolbar-overlapping-browser-height);
+  }
+
+  /* Make sure that the toolbars are not positioned in-front of the browser
+  * element. */
+  #main-window[BookmarksToolbarOverlapsBrowser] #navigator-toolbox:not([style*="z-index"]) {
+    z-index: auto !important;
+  }
+
+  /* Move the browser element in-front of the toolbars when on the new tab page. */
+  #main-window:not([BookmarksToolbarOverlapsBrowser]) #browser {
+    z-index: 1 !important;
+  }
+
+  /* Variables used for the rounded corners. */
+  #main-window:not([chromehidden~="toolbar"]) {
+    --uc-tweak-rounded-corners-padding: 3px;
+    --uc-tweak-rounded-corners-radius: 6px;
+    --uc-tweak-rounded-corners-shadow:
+1px 1px 6px 0px #00000021 inset, -1px -1px 6px 1px #00000021 inset;
+
+  /*3px 3px 6px 0px rgba(0,0,0,0.2) inset, -3px -3px 6px 0px rgba(0,0,0,0.2) inset;*/
+/*0px 2px 5px 0px rgba(0,0,0,0.14) , 0px 1px 10px 0px rgba(0,0,0,0.12) , 0px 2px 4px -1px rgba(0,0,0,0.2) ;*/
+xxxxxrgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;xxxxxx
+ /*rgba(0, 0, 0, 0.35) 0px 5px 15px;*/
+
+    --browser-frame-bgcolor: var(--lwt-accent-color);
+
+    /* Different shadow for higher resolution displays. */
+    @media (resolution > 1.8dppx) {
+      --uc-tweak-rounded-corners-shadow:
+1px 1px 6px 0px #00000021 inset, -1px -1px 6px 1px #00000021 inset;
+
+  /*3px 3px 6px 0px rgba(0,0,0,0.2) inset, -3px -3px 6px 0px rgba(0,0,0,0.2) inset;*/
+/*0px 2px 5px 0px rgba(0,0,0,0.14) , 0px 1px 10px 0px rgba(0,0,0,0.12) , 0px 2px 4px -1px rgba(0,0,0,0.2) ;*/
+xxxxxxxrgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;xxxxxx
+ /*rgba(0, 0, 0, 0.35) 0px 5px 15px;*/
+
+  }
+
+    @media {
+      --browser-frame-bgcolor: var(--lwt-accent-color);
+    }
+  }
+
+  /* Hide border below titlebar on macOS, as its titlebar already has a border. */
+  @media (-moz-platform: macos) {
+    :root[chromehidden~="toolbar"][chromehidden~="location"][chromehidden~="directories"] {
+      border-top: none !important;
+    }
+  }
+
+  /* Remove separator between toolbars and the browser window. */
+  #navigator-toolbox {
+    border-bottom: none !important;
+  }
+
+  /* Disable rounded corners in fullscreen, only if the toolbar is hidden. */
+  :root[inFullscreen] #navigator-toolbox[style*="margin-top"] + #browser,
+  :root[inDOMFullscreen] #browser {
+    --uc-tweak-rounded-corners-padding: 0;
+    --uc-tweak-rounded-corners-radius: 0;
+    --uc-tweak-rounded-corners-shadow: unset;
+  }
+  
+  /* Apply rounded corners to the browser container. */
+  #appcontent .browserStack {
+    margin-inline-start: var(--uc-tweak-rounded-corners-padding) !important;
+    margin-inline-end: var(--uc-tweak-rounded-corners-padding) !important;
+    margin-block-start: 0px !important;
+    margin-block-end: var(--uc-tweak-rounded-corners-padding) !important;
+    border-radius: var(--uc-tweak-rounded-corners-radius) !important;
+    box-shadow: var(--uc-tweak-rounded-corners-shadow) !important;
+    background-color: var(--tabpanel-background-color) !important;
+    position: relative !important;
+
+    /* Use pseudo element overlay to simulate rounded corners, similar to the
+     * tab corners, fixes bug with backdrop-filter. */
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      /* Draw toolbar background on the negative corner space, then draw the
+       * same from the browser window shadow on top. */
+      box-shadow:
+        var(--uc-tweak-rounded-corners-shadow, 0 0 transparent),
+        0 0 0 16px var(--browser-frame-bgcolor) !important;
+      clip-path: inset(0);
+      pointer-events: none;
+    }
+  }
+
+  /* Apply rounded corners to the browser content. */
+  #appcontent .browserStack browser {
+    border-radius: var(--uc-tweak-rounded-corners-radius) !important;
+  }
+
+
+
+
+
+
+@media (-moz-bool-pref: "af.edgyarc.thin-navbar") {
+  /*Thin Navbar mod*/
+
+  :root[windowtype="navigator:browser"] {
+    #nav-bar {
+      font-size: 1em !important;
+      --toolbarbutton-border-radius: 4px !important;
+      --toolbarbutton-inner-padding: 4px !important;
+      --uc-toolbarbutton-inner-inline-padding: 8px !important;
+      --toolbarbutton-outer-padding: 2px;
+
+      height: 28px !important;
+      max-height: 28px !important;
+    }
+
+
+/*page actions*/
+.urlbar-page-action {
+
+
+  & .urlbar-icon {
+
+    padding: 0px !important;
+  margin: -1px 0 0 -2px !important;
+  }
+}
+
+
+
+    #urlbar {
+      --urlbar-toolbar-height: 24px !important;
+
+      --urlbar-height: 24px !important;
+      --urlbar-min-height: 24px !important;
+margin-top: -1px !important;
+  --urlbar-icon-border-radius: 99px !important;
+
+      #tracking-protection-icon-container {
+        margin-top: 0px !important;
+  margin-left: 2px;
+      }
+    }
+
+
+
+
+   #urlbar:not([breakout][breakout-extend]) {
+  #urlbar-background {
+    background-color: color-mix(
+      in srgb,
+      light-dark(#fff, var(--lwt-accent-color)) 70%,
+      light-dark(rgba(255, 255, 255, 0.5), rgba(35, 35, 35, 0.5))
+    ) !important;
+    @media not (-moz-bool-pref: "af.edgyarc.edge-sidebar") {
+      background-color: color-mix(
+        in srgb,
+        light-dark(#fff, var(--lwt-accent-color)) 50%,
+        light-dark(rgba(255, 255, 255, 0.5), rgba(10, 10, 10, 0.8))
+      ) !important;
+    }          opacity: 1 !important;
+         
+          border-radius: 15px !important;
+          box-shadow: 1px 1px 6px 0px #00000021 inset, -1px -1px 6px 1px #00000021 inset ;
+          margin: 0px !important;
+          top: -1px !important;
+ /:border: 0.6px solid #00000026 !important;:/
+    
+          }
+        }
+      }
+
+
+
+
+    }
+  }
+}
+
+

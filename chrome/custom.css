@@ -1,0 +1,21 @@
+/* Custom Styles */
+
+#titlebar {
+appearance: none !important;
+}
+
+#nav-bar {
+  padding-top: 2px !important;
+}
+
+
+
+
+
+
+
+
+#urlbar-background,
+#searchbar {
+	border-radius: 15px !important;
+}
